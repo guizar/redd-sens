@@ -17,7 +17,6 @@ Load the relevant data sources
 
 ```r
 d = read_csv(paste0(pth,"data/matched_sets_all.csv")) %>% filter(meets_int_cond==T)
-d_verra = read_csv(paste0(pth,"data/avoided_defor_vcs_estimates.csv")) %>% mutate(vcs_id = as.character(vcs_id) )
 d_guizar = read_csv(paste0(pth,"data/guizar_2022.csv"))
 selected_runs = read_csv(paste0(pth,"data/selected_robust_runs.csv"))
 redd_meta = read_csv(paste0(pth,"data/vcs-info.csv"))
@@ -193,14 +192,11 @@ ggsave(paste0(pth,'img/','area-based-deforestation-loss-comparisons','.png'),ggp
 
 ![](img/area-based-deforestation-loss-comparisons.png)
 
-Bottom panel (b): Avoided deforestation in  HA  (now with avoided deforestation estimates from Verra)
+Bottom panel (b): Avoided deforestation in HA
 
 
 ```r
 d %<>% mutate(DD_ha = area_ha*(DD_perc*5)*0.01, guizar_ha = area_ha*(guizar*5)*0.01)
-
-# bring VERRA
-d %<>% left_join(d_verra %>% select(vcs_id,avoided_deofr_ha))
 
 # re-arrange by HA
 ord = d %>% select(vcs_id,DD_ha) %>% group_by(vcs_id) %>% summarise(DD_ha = mean(DD_ha)) %>% arrange(DD_ha) %>% .$vcs_id
