@@ -7,7 +7,6 @@ library(magrittr)
 library(broom)
 library(boot)
 
-# pth = "/Users/alejandroguizar/vlab/redd-sens/" # <- point to the project folder stored in your local directory
 pth = "~/redd-sens/" # <- point to the project folder stored in your local directory
 
 # Load functions
